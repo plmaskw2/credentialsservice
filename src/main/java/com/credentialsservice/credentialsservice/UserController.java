@@ -14,19 +14,15 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping("/{username}")
-    public String getByUsername(@PathVariable("username") String username) {
+    public User getByUsername(@PathVariable("username") String username) {
         return userRepository
-                .findByUsername(username)
-                .getPassword();
+                .findByUsername(username);
     }
 
     @GetMapping("")
-    public List<String> getUsers() {
+    public List<User> getUsers() {
         return userRepository
-                .findAll()
-                .stream()
-                .map(User::toString)
-                .toList();
+                .findAll();
     }
 
     @PostMapping("")
