@@ -16,15 +16,19 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/{username}")
+    @GetMapping("/username/{username}")
     public User getByUsername(@PathVariable("username") String username) {
         return userRepository
                 .findByUsername(username);
     }
 
-    @GetMapping("/{id}")
-    public Optional<User> getById(@PathVariable("id") String id) {
-        return userRepository.findById(id);
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Optional<User>> getById(@PathVariable("id") String id) {
+        if (userRepository.existsById(id)) {
+            Optional<User> user = userRepository.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     @GetMapping("")
