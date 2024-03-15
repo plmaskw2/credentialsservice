@@ -21,12 +21,6 @@ public class UserController {
                 .findByUsername(username);
     }
 
-    @GetMapping("/{id}")
-    public User getById(@PathVariable("id") String id) {
-        return userRepository
-                .findBy_Id(id);
-    }
-
     @GetMapping("")
     public List<User> getUsers() {
         return userRepository
@@ -42,7 +36,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable("id") String id, @RequestBody User user) {
         if(userRepository.existsById(id)) {
-            user.set_id(id);
+            user.setId(id);
             userRepository.save(user);
             return ResponseEntity.status(HttpStatus.OK).body("Updated OK");
         }
