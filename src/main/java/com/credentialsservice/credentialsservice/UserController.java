@@ -21,8 +21,8 @@ public class UserController {
                 .findByUsername(username);
     }
 
-    @GetMapping("/{_id}")
-    public User getById(@PathVariable("_id") String id) {
+    @GetMapping("/{id}")
+    public User getById(@PathVariable("id") String id) {
         return userRepository
                 .findBy_Id(id);
     }
@@ -39,8 +39,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Created OK");
     }
 
-    @PutMapping("/{_id}")
-    public ResponseEntity<String> updateUser(@PathVariable("_id") String id, @RequestBody User user) {
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable("id") String id, @RequestBody User user) {
         if(userRepository.existsById(id)) {
             user.set_id(id);
             userRepository.save(user);
@@ -49,8 +49,8 @@ public class UserController {
         else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Found");
     }
 
-    @DeleteMapping("/{_id}")
-    public ResponseEntity<String> deleteUser(@PathVariable("_id") String id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") String id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Deleted OK");
