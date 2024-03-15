@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -19,6 +20,11 @@ public class UserController {
     public User getByUsername(@PathVariable("username") String username) {
         return userRepository
                 .findByUsername(username);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<User> getById(@PathVariable("id") String id) {
+        return userRepository.findById(id);
     }
 
     @GetMapping("")
