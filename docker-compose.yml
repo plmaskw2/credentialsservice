@@ -12,6 +12,7 @@ services:
       - my-network
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+
   mongo-express:
     image: mongo-express
     container_name: mongo-express
@@ -33,12 +34,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8085:8085"
+    env_file:
+      - .env-rest-api
     depends_on:
       mongodb:
         condition: service_healthy
-    environment:
-      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/users
-      APP_VERSION: 1.0.0
     networks:
       - my-network
 
